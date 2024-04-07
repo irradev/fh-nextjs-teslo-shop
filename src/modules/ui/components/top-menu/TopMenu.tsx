@@ -5,7 +5,7 @@ import { MenuButton } from './MenuButton';
 
 export const TopMenu = () => {
   return (
-    <nav className="flex main-px py-2 justify-between items-center w-full bg-blue-100">
+    <nav className="flex main-px py-2 justify-between items-center w-full bg-white">
       {/* Logo */}
       <div className="">
         <Link href="/">
@@ -36,7 +36,7 @@ export const TopMenu = () => {
         </Link>
         <Link
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
-          href="/category/kids"
+          href="/category/kid"
         >
           Niños
         </Link>

@@ -1,35 +1,31 @@
-import clsx from 'clsx';
-import { IoArrowBackOutline, IoCardOutline } from 'react-icons/io5';
+import Link from 'next/link';
+import { IoArrowBackOutline } from 'react-icons/io5';
 import { Title } from '@/modules/ui/components';
 import { ProductList, SummaryOrder } from '@/modules/cart/components';
-import { PaymentStatusBadge } from './components/payment-status-badge/PaymentStatusBadge';
-import Link from 'next/link';
 
-interface Props {
-  orderId: string;
-}
-
-export const OrderByIdView = ({ orderId }: Props) => {
+export const CheckoutView = () => {
   return (
     <div className="flex justify-center items-center mb-72 px-10 main-px ">
       <div className="flex flex-col w-full max-w-[1100px] ">
-        <Title title={`Orden #${orderId}`} />
+        <Title title="Verificar orden" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex flex-col gap-2 mt-5">
-            {/* CTA more items */}
-            <BackToOrders />
-
-            {/* Status Order */}
-            <PaymentStatusBadge isOrderPaid />
+            {/* CTA Add more items */}
+            <EditItems />
 
             {/* Products In Cart */}
-            <ProductList type="order" />
+            <ProductList type="checkout" />
+            <ProductList type="checkout" />
+            <ProductList type="checkout" />
+            <ProductList type="checkout" />
+            <ProductList type="checkout" />
+            <ProductList type="checkout" />
           </div>
 
           <div>
             {/* Resumen de orden */}
-            <SummaryOrder type="order" />
+            <SummaryOrder type="checkout" />
           </div>
         </div>
       </div>
@@ -37,15 +33,16 @@ export const OrderByIdView = ({ orderId }: Props) => {
   );
 };
 
-function BackToOrders() {
+function EditItems() {
   return (
-    <div className="flex justify-end items-center  gap-4 mb-4">
+    <div className="flex justify-between items-center  gap-4 mb-4">
+      <span className="text-xl">Tus productos</span>
       <Link
-        href="/orders"
+        href="/cart"
         className="flex items-center gap-2 underline hover:text-blue-600 transition-colors"
       >
         <IoArrowBackOutline size={18} />
-        Ver ordenes
+        Editar carrito
       </Link>
     </div>
   );

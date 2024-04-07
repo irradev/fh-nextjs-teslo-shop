@@ -1,4 +1,4 @@
-import { CheckoutView } from '@/modules/cart/checkout/CheckoutView';
+import { CheckoutView } from '@/modules/checkout/CheckoutView';
 
 export default function CheckoutPage() {
   return <CheckoutView />;

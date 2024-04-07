@@ -1,4 +1,4 @@
-import { AddressView } from '@/modules/cart/checkout/AddressView';
+import { AddressView } from '@/modules/checkout/AddressView';
 
 export default function AddressPage() {
   return <AddressView />;

@@ -7,7 +7,7 @@ export default function ShopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="main-max-w ">
+    <div className="main-max-w flex flex-col min-h-screen">
       <header className="sticky top-0 z-10 shadow-md">
         <TopMenu />
       </header>
