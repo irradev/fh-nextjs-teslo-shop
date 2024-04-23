@@ -1,10 +1,23 @@
-import { initialData } from '@/seed/seed';
-import { Title } from '@/modules/ui/components';
-import { ProductGrid } from '@/modules/products/components';
+import { redirect } from 'next/navigation';
+import { QueryPagination, Title } from '@/modules/ui/components';
+import { EmptyProducts, ProductGrid } from '@/modules/products/components';
+import { getPaginatedProductsWithImages } from '@/modules/products/actions';
 
-const products = initialData.products;
+interface Props {
+  searchParams: {
+    page?: string;
+  };
+}
+export const HomeView = async ({ searchParams }: Props) => {
+  const { products, currentPage, totalPages } =
+    await getPaginatedProductsWithImages({
+      page: Number(searchParams.page),
+    });
 
-export const HomeView = () => {
+  if (products.length === 0) {
+    if (Number(searchParams.page) > 0) redirect('/');
+  }
+
   return (
     <>
       <section
@@ -17,7 +30,14 @@ export const HomeView = () => {
           className="mb-2"
         />
 
-        <ProductGrid products={products} />
+        {products.length > 0 ? (
+          <>
+            <ProductGrid products={products} />
+            <QueryPagination totalPages={totalPages} />
+          </>
+        ) : (
+          <EmptyProducts hrefText="Refrescar página" />
+        )}
       </section>
     </>
   );

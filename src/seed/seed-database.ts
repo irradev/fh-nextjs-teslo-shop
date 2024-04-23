@@ -13,18 +13,32 @@ async function main() {
   // ]);
 
   //1. Borrar registros previos
+  await prisma.orderAddress.deleteMany();
+  await prisma.orderItem.deleteMany();
+  await prisma.order.deleteMany();
+
+  await prisma.userAddress.deleteMany();
+  await prisma.user.deleteMany();
+
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
-  await prisma.category.deleteMany();
 
-  //2. Crear categorias
+  await prisma.category.deleteMany();
+  await prisma.country.deleteMany();
+
+  //2. Crear usuarios
+  await prisma.user.createMany({
+    data: initialData.users,
+  });
+
+  //3. Crear categorias
   await prisma.category.createMany({
     data: initialData.categories.map((category) => ({
       name: category.at(0)?.toUpperCase() + category.slice(1),
     })),
   });
 
-  //3. Crear productos
+  //4. Crear productos
   const categoriesDB = await prisma.category.findMany();
   const categoriesMap = categoriesDB.reduce((map, category) => {
     map[category.name.toLowerCase()] = category.id;
@@ -48,6 +62,11 @@ async function main() {
         productId: productDB.id,
       })),
     });
+  });
+
+  //5. Crear paises
+  await prisma.country.createMany({
+    data: initialData.countries,
   });
 
   console.log('Seed ejecutado correctamente');

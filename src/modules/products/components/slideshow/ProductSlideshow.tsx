@@ -33,7 +33,7 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
         //     '--swiper-pagination-color': '#fff',
         //   } as React.CSSProperties
         // }
-        loop={true}
+        // loop={true}
         spaceBetween={10}
         navigation={true}
         autoplay={{
@@ -57,7 +57,6 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
-        loop={true}
         spaceBetween={10}
         slidesPerView={4}
         freeMode={true}

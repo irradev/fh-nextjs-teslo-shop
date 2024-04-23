@@ -1,16 +1,23 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import { IoCloseOutline } from 'react-icons/io5';
-
-import { SidebarInputSearch } from './SidebarInputSearch';
-import { SidebarMenuList } from './SidebarMenuList';
-import { SidebarAdminMenuList } from './sidebar-admin-menu/SidebarAdminMenuList';
-import { useSidebarStore } from '../../store/sidebarStore';
 import clsx from 'clsx';
+
+import { useSidebarStore } from '../../store/sidebar-store';
+import { SidebarInputSearch } from './SidebarInputSearch';
+import { SidebarUserMenuList } from './sidebar-user-menu/SidebarUserMenuList';
+import { SidebarAdminMenuList } from './sidebar-admin-menu/SidebarAdminMenuList';
+import { LinkAuthLogOut } from './LinkAuthLogout';
+import { LinkAuthLogIn } from './LinkAuthLogIn';
 
 export const Sidebar = () => {
   const isSideMenuOpen = useSidebarStore((state) => state.isSideMenuOpen);
   const closeSideMenu = useSidebarStore((state) => state.closeSideMenu);
+
+  const { data: session } = useSession();
+
+  const isAuthenticated = !!session?.user;
 
   return (
     <div className="">
@@ -46,11 +53,23 @@ export const Sidebar = () => {
         {/* Input search */}
         <SidebarInputSearch />
 
-        {/* Menu */}
-        <SidebarMenuList />
+        {!isAuthenticated ? (
+          <>
+            {/* LogIn */}
+            <LinkAuthLogIn />
+          </>
+        ) : (
+          <>
+            {/* User Menu */}
+            <SidebarUserMenuList />
+          </>
+        )}
 
         {/* Admin menu */}
-        <SidebarAdminMenuList />
+        {session?.user.role === 'admin' ? <SidebarAdminMenuList /> : null}
+
+        {/* LogOut */}
+        {isAuthenticated ? <LinkAuthLogOut /> : null}
       </nav>
     </div>
   );

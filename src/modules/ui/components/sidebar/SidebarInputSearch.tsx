@@ -2,7 +2,7 @@ import { IoSearchOutline } from 'react-icons/io5';
 
 export const SidebarInputSearch = () => {
   return (
-    <div className="relative mt-20  ">
+    <div className="relative mt-20 mb-10 ">
       <IoSearchOutline
         size={20}
         className="absolute top-3 left-2"

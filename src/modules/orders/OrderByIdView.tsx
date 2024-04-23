@@ -1,19 +1,31 @@
-import clsx from 'clsx';
-import { IoArrowBackOutline, IoCardOutline } from 'react-icons/io5';
+import { IoArrowBackOutline } from 'react-icons/io5';
 import { Title } from '@/modules/ui/components';
-import { ProductList, SummaryOrder } from '@/modules/cart/components';
+import { ProductList } from '@/modules/cart/components';
 import { PaymentStatusBadge } from './components/payment-status-badge/PaymentStatusBadge';
 import Link from 'next/link';
+import { SummaryOrder } from './components';
+import { getOrderById } from './actions';
+import { notFound } from 'next/navigation';
 
 interface Props {
   orderId: string;
 }
 
-export const OrderByIdView = ({ orderId }: Props) => {
+export const OrderByIdView = async ({ orderId }: Props) => {
+  {
+    /* se debe trae la orden dese aquí y pasarlas la data por props a los componentes */
+  }
+
+  const order = await getOrderById(orderId);
+
+  if (!order.orderInfo) return notFound();
+
+  const isOrderPaid = order.orderInfo.isPaid;
+
   return (
     <div className="flex justify-center items-center mb-72 px-10 main-px ">
       <div className="flex flex-col w-full max-w-[1100px] ">
-        <Title title={`Orden #${orderId}`} />
+        <Title title={`Orden #${orderId.split('-').at(-1)}`} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="flex flex-col gap-2 mt-5">
@@ -21,15 +33,22 @@ export const OrderByIdView = ({ orderId }: Props) => {
             <BackToOrders />
 
             {/* Status Order */}
-            <PaymentStatusBadge isOrderPaid />
+            <PaymentStatusBadge isOrderPaid={isOrderPaid} />
 
             {/* Products In Cart */}
-            <ProductList type="order" />
+            <ProductList
+              type="order"
+              orderId={orderId}
+            />
           </div>
 
           <div>
             {/* Resumen de orden */}
-            <SummaryOrder type="order" />
+            <SummaryOrder
+              type="order"
+              orderId={orderId}
+              isOrderPaid={isOrderPaid}
+            />
           </div>
         </div>
       </div>

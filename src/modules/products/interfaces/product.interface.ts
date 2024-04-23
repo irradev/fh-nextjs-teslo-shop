@@ -1,5 +1,5 @@
 export interface Product {
-  //todo: id: string;
+  id: string;
   description: string;
   images: string[];
   inStock: number;
@@ -8,8 +8,16 @@ export interface Product {
   slug: string;
   tags: string[];
   title: string;
-  type: Type;
+  categoryId: string;
+  // type: Type;
   gender: Gender;
+  ProductImage?: ProductImage[];
+}
+
+export interface ProductImage {
+  url: string;
+  id: number;
+  productId: string;
 }
 
 export type Gender = 'men' | 'women' | 'kid' | 'unisex';

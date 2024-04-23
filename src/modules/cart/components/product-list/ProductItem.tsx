@@ -1,14 +1,16 @@
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Product } from '@/modules/products/interfaces';
+import { CartProduct } from '@/modules/products/interfaces';
 import { ProductItemActions } from './ProductItemActions';
 import { ProductListType } from '../../interfaces';
+import Link from 'next/link';
 
 interface Props {
-  product: Product;
+  product: CartProduct;
   showEditActions?: boolean;
   type?: ProductListType;
 }
+
 export const ProductItem = ({
   product,
   showEditActions = true,
@@ -17,14 +19,21 @@ export const ProductItem = ({
   return (
     <div className="flex items-start gap-4 border-t-2 border-gray-300 w-full pt-4 ">
       {/* image  */}
-      <ProductImage
-        imageUrl={`/products/${product.images[0]}`}
-        title={product.title}
-      />
+      <Link
+        href={`/product/${product.slug}`}
+        className="hover:underline"
+      >
+        <ProductImage
+          imageUrl={`/products/${product.image}`}
+          title={product.title}
+        />
+      </Link>
 
       <div className="flex flex-col justify-start items-start gap-2 md:flex-row-reverse   w-full">
         {/* price */}
-        {type !== 'order' ? <ProductPrice price={product.price * 3} /> : null}
+        {type !== 'order' ? (
+          <ProductPrice price={product.price * product.quantity} />
+        ) : null}
 
         <div
           className={clsx(
@@ -32,15 +41,19 @@ export const ProductItem = ({
             showEditActions ? 'gap-4' : 'gap-2'
           )}
         >
-          {/* title  */}
-          <p className="font-bold ">{product.title}</p>
+          {/* size & title  */}
+          <Link
+            href={`/product/${product.slug}`}
+            className="hover:underline"
+          >
+            <p className="font-bold">
+              {product.size} - {product.title}
+            </p>
+          </Link>
 
           {/* quantity selector, remove, */}
           {showEditActions ? (
-            <ProductItemActions
-              productId={'ddd'}
-              quantity={1}
-            />
+            <ProductItemActions product={product} />
           ) : (
             <div className="flex items-center gap-4">
               <div className="flex flex-col">
@@ -49,12 +62,12 @@ export const ProductItem = ({
               </div>
               <div className="flex flex-col">
                 <span className="text-gray-400 text-sm"> Cantidad</span>
-                <p className="text-lg">x3</p>
+                <p className="text-lg">x{product.quantity}</p>
               </div>
               {type === 'order' ? (
                 <div className="flex flex-col">
                   <span className="text-gray-400 text-sm"> Subtotal</span>
-                  <p className="text-lg">${product.price * 3}</p>
+                  <p className="text-lg">${product.price * product.quantity}</p>
                 </div>
               ) : null}
             </div>

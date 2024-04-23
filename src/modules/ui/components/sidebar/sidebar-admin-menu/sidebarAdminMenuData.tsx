@@ -4,7 +4,9 @@ import {
   IoTicketOutline,
 } from 'react-icons/io5';
 
-export const sidebarAdminMenuData = [
+import { SidebarMenuItem } from '@/modules/ui/interfaces/sidebar-menu-item.interface';
+
+export const sidebarAdminMenuData: SidebarMenuItem[] = [
   {
     title: 'Productos',
     href: '/admin/products',

@@ -1,9 +1,28 @@
+'use client';
+
 import Link from 'next/link';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { Title } from '@/modules/ui/components';
-import { ProductList, SummaryOrder } from '@/modules/cart/components';
+import { ProductList } from '@/modules/cart/components';
+import { SummaryOrder } from '../orders/components';
+import { useCartStore } from '../cart/store';
+import { useEffect, useState } from 'react';
+import { redirect } from 'next/navigation';
 
 export const CheckoutView = () => {
+  const productsInCart = useCartStore((state) => state.cart);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (isLoaded && productsInCart.length === 0) {
+      redirect('/empty');
+    }
+  }, [isLoaded]);
+
   return (
     <div className="flex justify-center items-center mb-72 px-10 main-px ">
       <div className="flex flex-col w-full max-w-[1100px] ">
@@ -14,12 +33,7 @@ export const CheckoutView = () => {
             {/* CTA Add more items */}
             <EditItems />
 
-            {/* Products In Cart */}
-            <ProductList type="checkout" />
-            <ProductList type="checkout" />
-            <ProductList type="checkout" />
-            <ProductList type="checkout" />
-            <ProductList type="checkout" />
+            {/* Products In Cart * deberiamos pasarle los productos por props */}
             <ProductList type="checkout" />
           </div>
 
