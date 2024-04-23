@@ -13,3 +13,4 @@ Eccommerce de prueba para el curso de Next.js 14 de Fernando Herrera.
 7. Correr el proyecto `npm run dev`
 
 ## Correr en prod
+# fh-nextjs-teslo-shop
