@@ -12,5 +12,16 @@ Eccommerce de prueba para el curso de Next.js 14 de Fernando Herrera.
 6. Ejecutar seed `npm run seed`
 7. Correr el proyecto `npm run dev`
 
+## Paypal SANDBOX credentials
+
+**WARNING**: These credentials are for testing purposes only. Do not use your real credentials!.
+**ADVERTENCIA**: Estas credenciales son solo para pruebas. ¡No utilices tus credenciales reales!
+
+```
+user: client_test@personal.examle.com
+pass: Abc123456
+```
+
 ## Correr en prod
+
 # fh-nextjs-teslo-shop
