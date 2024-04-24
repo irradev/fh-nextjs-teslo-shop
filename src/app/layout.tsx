@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { inter } from '@/config/fonts';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import './globals.css';
 import { LayoutProviders } from './LayoutProviders';
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} `}>
         <LayoutProviders>{children}</LayoutProviders>
+        <SpeedInsights />
       </body>
     </html>
   );
